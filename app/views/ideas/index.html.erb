@@ -1,2 +1,13 @@
-<h1>Ideas#index</h1>
-<p>Find me in app/views/ideas/index.html.erb</p>
+<div class="ideas">
+  <h1>Ideas</h1>
+</div>
+
+<div class="new-idea">
+  <%= form_for @idea do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :body %>
+    <%= f.text_field :body %>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>
