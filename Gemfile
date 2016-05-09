@@ -24,3 +24,5 @@ group :development do
   gem 'spring'
   gem 'quiet_assets'
 end
+
+gem 'simplecov', require: false, group: :test
