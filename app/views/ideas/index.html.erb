@@ -1,13 +1,21 @@
-<div class="ideas">
+<div class="container">
   <h1>Ideas</h1>
 </div>
 
-<div class="new-idea">
-  <%= form_for @idea do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.label :body %>
-    <%= f.text_field :body %>
-    <%= f.submit "Save" %>
-  <% end %>
+<div class="container">
+  <div class="btn">
+    <button type="submit" name="add-idea" id="add-idea">New Idea</button>
+  </div>
+</div>
+
+<div class="container">
+  <div id="new-idea" style="display:none;">
+    <%= form_for @idea do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+      <%= f.label :body %>
+      <%= f.text_field :body %>
+      <%= f.submit "Save" %>
+    <% end %>
+  </div>
 </div>
