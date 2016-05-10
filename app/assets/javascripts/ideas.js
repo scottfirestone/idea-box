@@ -21,7 +21,7 @@ function createIdea(){
   var ideaParams = {idea: {title: $('#idea-title').val(),
                            body: $('#idea-body').val()}}
   $.ajax({
-    url: "/ideas",
+    url: "/api/v1/ideas",
     method: "POST",
     dataType: "json",
     data: ideaParams,
