@@ -1,12 +1,15 @@
 class IdeasController < ApplicationController
-  respond_to :js
+  respond_to :json, :html
 
   def index
-    @idea = Idea.new
+    @ideas = Idea.all
   end
 
   def create
-    binding.pry
+    @idea = Idea.new(idea_params)
+    if @idea.save
+      respond_with @idea
+    end
   end
 
   private
