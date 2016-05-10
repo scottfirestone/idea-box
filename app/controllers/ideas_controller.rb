@@ -6,8 +6,7 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.create(idea_params)
-    respond_with @idea
+    binding.pry
   end
 
   private
