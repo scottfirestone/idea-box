@@ -9,7 +9,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'pg'
-gem 'responders', '~> 2.0'
+gem 'responders'
 
 group :development, :test do
   gem 'byebug'

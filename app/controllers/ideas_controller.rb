@@ -1,17 +1,15 @@
 class IdeasController < ApplicationController
-  respond_to :html, :js
+  respond_to :json, :html
 
   def index
     @ideas = Idea.all
   end
 
-  def new
-    @idea = Idea.new
-  end
-
   def create
-    @idea = Idea.create(idea_params)
-    respond_with @idea
+    @idea = Idea.new(idea_params)
+    if @idea.save
+      respond_with @idea
+    end
   end
 
   private
