@@ -3,4 +3,8 @@ class Idea < ActiveRecord::Base
 
   validates :quality, inclusion: { in: qualities.keys }
   #validation for  empty title and body
+
+  def upvote
+    self[:quality] = self[:quality] + 1
+  end
 end

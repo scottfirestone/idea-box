@@ -5,6 +5,7 @@ $('document').ready(function(){
   $('#add-idea').on("click", createIdea);
   $('body').on("click", "input.delete-idea", deleteIdea);
   $('body').on("blur", ".idea", editIdea);
+  $('body').on("click", "span.upvote", upvoteIdea);
 });
 
 function fetchIdeas(){
@@ -27,8 +28,9 @@ function renderIdea(idea){
     + idea.body
     + "</div></p><p>"
     + idea.quality
-    + "</p>"
-    + "<input class='btn btn-default pull-right delete-idea' "
+    + "</p><a href=#>"
+    + "<span class='upvote glyphicon glyphicon-thumbs-up'></span>"
+    + "</a><input class='btn btn-default pull-right delete-idea'"
     + "type=button name=Delete value=Delete></div>");
 }
 
@@ -77,4 +79,14 @@ function editIdea(){
     dataType: "json",
     data: ideaParams
   })
+}
+
+function upvoteIdea(){
+  var idea_id = $(this).parents(".idea").data("idea-id");
+  $.ajax({
+    url: "/api/v1/ideas/" + idea_id + "/upvote",
+    method: "PUT",
+    dataType: "text",
+    data: idea_id
+  });
 }
