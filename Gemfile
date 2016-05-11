@@ -30,4 +30,5 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem 'launchy'
 end

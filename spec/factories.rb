@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :idea do
-    title "MyString"
-    body "MyString"
-    quality 1
+    title "Idea-Title"
+    body "Idea-Body"
+    quality 0
   end
 end
