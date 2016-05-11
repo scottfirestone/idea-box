@@ -3,6 +3,7 @@
 $('document').ready(function(){
   fetchIdeas();
   $('#add-idea').on("click", createIdea);
+  $('body').on("click", "input.delete-idea", deleteIdea);
 });
 
 function fetchIdeas(){
@@ -25,7 +26,9 @@ function renderIdea(idea){
     + idea.body
     + "</p><p>Quality: "
     + idea.quality
-    + "</p></div>");
+    + "</p>"
+    + "<input class='btn btn-default pull-right delete-idea' "
+    + "type=button name=Delete value=Delete></div>");
 }
 
 function createIdea(){
@@ -40,4 +43,16 @@ function createIdea(){
       renderIdea(idea);
     }
   });
+}
+
+function deleteIdea(idea){
+  var idea_id = $(this).parents(".idea").data("idea-id");
+
+  $.ajax({
+    url: "/api/v1/ideas/" + idea_id + ".json",
+    method: "DELETE",
+    success: function(){
+      $(".idea[data-idea-id=" + idea_id + "]").remove();
+    }
+  })
 }
