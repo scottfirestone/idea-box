@@ -52,7 +52,7 @@ function deleteIdea(idea){
     url: "/api/v1/ideas/" + idea_id + ".json",
     method: "DELETE",
     success: function(){
-      $(".idea[data-idea-id=" + post_id + "]").remove();
+      $(".idea[data-idea-id=" + idea_id + "]").remove();
     }
   })
 }
