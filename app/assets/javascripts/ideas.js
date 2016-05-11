@@ -4,13 +4,7 @@ $('document').ready(function(){
   fetchIdeas();
   $('#add-idea').on("click", createIdea);
   $('body').on("click", "input.delete-idea", deleteIdea);
-  $('body').on("click", function(e){
-    var container = $(".idea");
-    var idea_id = $(this).parents(".idea").data("idea-id");
-    if (!container.is(e.target) && container.has(e.target).length == 0) {
-      editIdea(idea_id);
-    }
-  });
+  $('body').on("blur", ".idea", editIdea);
 });
 
 function fetchIdeas(){
@@ -25,13 +19,13 @@ function fetchIdeas(){
 
 function renderIdea(idea){
   $("#ideas")
-    .append("<div class=idea data-idea-id="
+    .prepend("<div class=idea data-idea-id="
     + idea.id
-    + "><p contenteditable=true>"
+    + "><div class=title><p contenteditable=true>"
     + idea.title
-    + "</p><p contenteditable=true>"
+    + "</div></p><div class=body><p contenteditable=true>"
     + idea.body
-    + "</p><p>"
+    + "</div></p><p>"
     + idea.quality
     + "</p>"
     + "<input class='btn btn-default pull-right delete-idea' "
@@ -39,16 +33,19 @@ function renderIdea(idea){
 }
 
 function createIdea(){
-  var ideaParams = {idea: {title: $('#idea-title').val(),
-                           body: $('#idea-body').val()}}
+  var ideaParams = {
+    idea: {
+      title: $('#idea-title').val(),
+      body: $('#idea-body').val()
+    }
+  }
+
   $.ajax({
     url: "/api/v1/ideas",
     method: "POST",
     dataType: "json",
     data: ideaParams,
-    success: function(idea){
-      renderIdea(idea);
-    }
+    success: renderIdea
   });
 }
 
@@ -64,16 +61,20 @@ function deleteIdea(idea){
   })
 }
 
-function editIdea(idea_id){
-  var ideaParams = {idea: {title: $('#idea-title').val(),
-                           body: $('#idea-body').val()}};
-  $.ajax({
-    url: "/api/v1/ideas/" + idea_id + ".json",
-    method: "PATCH",
-    dataType: "json",
-    data: ideaParams,
-    success: function(idea){
-      renderIdea(idea);
+function editIdea(){
+  var idea_id = $(this).data("idea-id");
+  var idea = $("div[data-idea-id*="+ idea_id + "]")
+  var ideaParams = {
+    idea: {
+      title: $(idea).children('.title').children('p').text(),
+      body: $(idea).children('.body').children('p').text()
     }
+  };
+
+  $.ajax({
+    url: "/api/v1/ideas/" + idea_id,
+    method: "PUT",
+    dataType: "json",
+    data: ideaParams
   })
 }

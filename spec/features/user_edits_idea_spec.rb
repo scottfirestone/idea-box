@@ -5,12 +5,10 @@ RSpec.feature "User edits an idea", js: true do
     idea = Idea.create(title: "OG-Title", body: "OG-Body")
 
     visit root_path
-    click_on "OG-Title"
-    within("#ideas") do
-      fill_in "title", with: "Updated-Title"
-      fill_in "body", with: "Updated-Body"
-      fill_in "body", with: "\t"
-    end
+    title = page.find(:xpath,"//*[normalize-space()='OG-Title']", match: :first)
+    title.click
+    title.set("Updated-Title")
+    title.set("\r")
 
     within("#ideas") do
       expect(page).to have_content("Updated-Title")
