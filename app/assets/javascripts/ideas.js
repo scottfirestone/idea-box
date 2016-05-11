@@ -4,6 +4,13 @@ $('document').ready(function(){
   fetchIdeas();
   $('#add-idea').on("click", createIdea);
   $('body').on("click", "input.delete-idea", deleteIdea);
+  $('body').on("click", function(e){
+    var container = $(".idea");
+    var idea_id = $(this).parents(".idea").data("idea-id");
+    if (!container.is(e.target) && container.has(e.target).length == 0) {
+      editIdea(idea_id);
+    }
+  });
 });
 
 function fetchIdeas(){
@@ -20,11 +27,11 @@ function renderIdea(idea){
   $("#ideas")
     .append("<div class=idea data-idea-id="
     + idea.id
-    + "><p>Title: "
+    + "><p contenteditable=true>"
     + idea.title
-    + "</p><p>Body: "
+    + "</p><p contenteditable=true>"
     + idea.body
-    + "</p><p>Quality: "
+    + "</p><p>"
     + idea.quality
     + "</p>"
     + "<input class='btn btn-default pull-right delete-idea' "
@@ -53,6 +60,20 @@ function deleteIdea(idea){
     method: "DELETE",
     success: function(){
       $(".idea[data-idea-id=" + idea_id + "]").remove();
+    }
+  })
+}
+
+function editIdea(idea_id){
+  var ideaParams = {idea: {title: $('#idea-title').val(),
+                           body: $('#idea-body').val()}};
+  $.ajax({
+    url: "/api/v1/ideas/" + idea_id + ".json",
+    method: "PATCH",
+    dataType: "json",
+    data: ideaParams,
+    success: function(idea){
+      renderIdea(idea);
     }
   })
 }
