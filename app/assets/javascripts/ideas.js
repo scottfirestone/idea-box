@@ -1,12 +1,14 @@
 'use strict';
 
 $('document').ready(function(){
+
   fetchIdeas();
   $('#add-idea').on("click", createIdea);
   $('body').on("click", "input.delete-idea", deleteIdea);
   $('body').on("blur", ".idea", editIdea);
   $('body').on("click", "span.upvote", upvoteIdea);
   $('body').on("click", "span.downvote", downvoteIdea);
+  $('#filter').on('keyup', filter);
 });
 
 function fetchIdeas(){
@@ -129,3 +131,17 @@ function changeQuality(element, quality, vote){
     }
   }
 }
+
+
+function filter(){
+  var $ideas = $('.idea');
+  var filterParam = this.value;
+  $ideas.each(function (index, idea) {
+    var $idea = $(idea);
+    if ($idea.children('.title').text().indexOf(filterParam) !== -1 || $idea.children('.body').text().indexOf(filterParam) !== -1 ) {
+      $idea.show();
+    } else {
+      $idea.hide();
+    }
+  });
+};
