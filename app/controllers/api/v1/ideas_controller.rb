@@ -2,7 +2,7 @@ class Api::V1::IdeasController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Idea.all, location: nil
+    respond_with Idea.all.order('id desc'), location: nil
   end
 
   def create
