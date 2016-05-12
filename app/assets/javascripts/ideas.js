@@ -25,9 +25,9 @@ function renderIdea(idea){
   $("#ideas")
     .prepend("<div class='well idea' data-idea-id="
     + idea.id
-    + "><div class=title><p contenteditable=true>"
+    + "><div class=title><h4 contenteditable=true>"
     + idea.title
-    + "</div></p><div class=body><p contenteditable=true>"
+    + "</div></h4><div class=body><p contenteditable=true>"
     + idea.body
     + "</div></p><br><p class=quality>"
     + idea.quality
@@ -77,7 +77,7 @@ function editIdea(){
   var idea = $("div[data-idea-id*="+ idea_id + "]")
   var ideaParams = {
     idea: {
-      title: $(idea).children('.title').children('p').text(),
+      title: $(idea).children('.title').children('h4').text(),
       body: $(idea).children('.body').children('p').text()
     }
   };
