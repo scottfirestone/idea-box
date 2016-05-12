@@ -9,14 +9,12 @@ RSpec.feature "User changes idea quality", js: true do
     visit root_path
     find('span.upvote').click
 
-    expect(idea.quality).to eq("Plausible")
     expect(page).to have_content("Plausible")
     expect(page).to_not have_content("Swill")
     expect(page).to_not have_content("Genius")
 
-    find('.upvote', match: :first).click
+    find('span.upvote').click
 
-    expect(idea.quality).to eq("Genius")
     expect(page).to have_content("Genius")
     expect(page).to_not have_content("Swill")
     expect(page).to_not have_content("Plausible")
