@@ -30,7 +30,7 @@ class Api::V1::IdeasController < ApplicationController
     respond_with idea, location: nil
   end
 
-  def upvote
+  def downvote
     idea = Idea.find(params[:id])
     idea.downvote
     idea.save

@@ -6,6 +6,7 @@ $('document').ready(function(){
   $('body').on("click", "input.delete-idea", deleteIdea);
   $('body').on("blur", ".idea", editIdea);
   $('body').on("click", "span.upvote", upvoteIdea);
+  $('body').on("click", "span.downvote", downvoteIdea);
 });
 
 function fetchIdeas(){
@@ -30,7 +31,9 @@ function renderIdea(idea){
     + idea.quality
     + "</p><a href=#>"
     + "<span class='upvote glyphicon glyphicon-thumbs-up'></span>"
-    + "</a><input class='btn btn-default pull-right delete-idea'"
+    + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=#>"
+    + "<span class='downvote glyphicon glyphicon-thumbs-down'></span>"
+    + "<input class='btn btn-default pull-right delete-idea'"
     + "type=button name=Delete value=Delete></div>");
 }
 
@@ -94,13 +97,33 @@ function upvoteIdea(){
   });
 }
 
+function downvoteIdea(){
+  var idea_id = $(this).parents(".idea").data("idea-id");
+  var quality = $(this).parents(".idea").children('p.quality').text();
+  var element = $(this)
+  $.ajax({
+    url: "/api/v1/ideas/" + idea_id + "/downvote",
+    method: "PUT",
+    dataType: "text",
+    data: idea_id,
+    success: changeQuality(element, quality, "downvote")
+  });
+}
+
+
 function changeQuality(element, quality, vote){
   var qualities = ["Swill", "Possible", "Genius"];
+  var index = qualities.indexOf(quality);
 
   if (vote === "upvote") {
-    var index = qualities.indexOf(quality);
     if (index < qualities.length - 1){
       var newQuality = qualities[index + 1]
+      element.parents(".idea").find('p.quality')
+        .replaceWith("<p class=quality>" + newQuality + "</p>");
+    }
+  } else if (vote === "downvote") {
+    if (index > 0){
+      var newQuality = qualities[index - 1]
       element.parents(".idea").find('p.quality')
         .replaceWith("<p class=quality>" + newQuality + "</p>");
     }
