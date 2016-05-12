@@ -6,8 +6,14 @@ $('document').ready(function(){
   $('#add-idea').on("click", createIdea);
   $('body').on("click", "input.delete-idea", deleteIdea);
   $('body').on("blur", ".idea", editIdea);
-  $('body').on("click", "span.upvote", upvoteIdea);
-  $('body').on("click", "span.downvote", downvoteIdea);
+  $('body').on("click", "span.upvote", function(e){
+    e.preventDefault();
+    upvoteIdea($(this));
+  });
+  $('body').on("click", "span.downvote", function(e){
+    e.preventDefault();
+    downvoteIdea($(this));
+  });
   $('#filter').on('keyup', filter);
 });
 
@@ -90,10 +96,10 @@ function editIdea(){
   })
 }
 
-function upvoteIdea(){
-  var idea_id = $(this).parents(".idea").data("idea-id");
-  var quality = $(this).parents(".idea").children('p.quality').text();
-  var element = $(this)
+function upvoteIdea($this){
+  var idea_id = $this.parents(".idea").data("idea-id");
+  var quality = $this.parents(".idea").children('p.quality').text();
+  var element = $this
   $.ajax({
     url: "/api/v1/ideas/" + idea_id + "/upvote",
     method: "PUT",
@@ -103,10 +109,10 @@ function upvoteIdea(){
   });
 }
 
-function downvoteIdea(){
-  var idea_id = $(this).parents(".idea").data("idea-id");
-  var quality = $(this).parents(".idea").children('p.quality').text();
-  var element = $(this)
+function downvoteIdea($this){
+  var idea_id = $this.parents(".idea").data("idea-id");
+  var quality = $this.parents(".idea").children('p.quality').text();
+  var element = $this
   $.ajax({
     url: "/api/v1/ideas/" + idea_id + "/downvote",
     method: "PUT",
