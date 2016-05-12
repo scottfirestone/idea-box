@@ -7,4 +7,8 @@ class Idea < ActiveRecord::Base
   def upvote
     self[:quality] += 1
   end
+
+  def downvote
+    self[:quality] -= 1
+  end
 end

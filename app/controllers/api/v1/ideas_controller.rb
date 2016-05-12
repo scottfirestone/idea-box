@@ -30,6 +30,13 @@ class Api::V1::IdeasController < ApplicationController
     respond_with idea, location: nil
   end
 
+  def upvote
+    idea = Idea.find(params[:id])
+    idea.downvote
+    idea.save
+    respond_with idea, location: nil
+  end
+
   private
 
     def idea_params
