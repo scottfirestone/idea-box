@@ -5,6 +5,6 @@ class Idea < ActiveRecord::Base
   #validation for  empty title and body
 
   def upvote
-    self[:quality] = self[:quality] + 1
+    self[:quality] += 1
   end
 end

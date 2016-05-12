@@ -1,13 +1,13 @@
 require "rails_helper"
 
-RSpec.feature "User changes idea quality" do
+RSpec.feature "User changes idea quality", js: true do
   scenario "the quality is upvoted" do
     idea = create(:idea)
 
     expect(idea.quality).to eq("Swill")
 
     visit root_path
-    find('.upvote', match: :first).click
+    find('span.upvote').click
 
     expect(idea.quality).to eq("Possible")
     expect(page).to have_content("Possible")

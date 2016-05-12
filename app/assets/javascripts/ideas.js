@@ -26,7 +26,7 @@ function renderIdea(idea){
     + idea.title
     + "</div></p><div class=body><p contenteditable=true>"
     + idea.body
-    + "</div></p><p>"
+    + "</div></p><p class=quality>"
     + idea.quality
     + "</p><a href=#>"
     + "<span class='upvote glyphicon glyphicon-thumbs-up'></span>"
@@ -83,10 +83,26 @@ function editIdea(){
 
 function upvoteIdea(){
   var idea_id = $(this).parents(".idea").data("idea-id");
+  var quality = $(this).parents(".idea").children('p.quality').text();
+  var element = $(this)
   $.ajax({
     url: "/api/v1/ideas/" + idea_id + "/upvote",
     method: "PUT",
     dataType: "text",
-    data: idea_id
+    data: idea_id,
+    success: changeQuality(element, quality, "upvote")
   });
+}
+
+function changeQuality(element, quality, vote){
+  var qualities = ["Swill", "Possible", "Genius"];
+
+  if (vote === "upvote") {
+    var index = qualities.indexOf(quality);
+    if (index < qualities.length - 1){
+      var newQuality = qualities[index + 1]
+      element.parents(".idea").find('p.quality')
+        .replaceWith("<p class=quality>" + newQuality + "</p>");
+    }
+  }
 }
