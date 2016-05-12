@@ -52,7 +52,11 @@ function createIdea(){
     method: "POST",
     dataType: "json",
     data: ideaParams,
-    success: renderIdea
+    success: function(idea){
+      renderIdea(idea);
+      $('#idea-title').val("");
+      $('#idea-body').val("");
+    }
   });
 }
 
