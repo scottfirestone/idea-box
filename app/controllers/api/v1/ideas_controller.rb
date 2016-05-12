@@ -23,6 +23,20 @@ class Api::V1::IdeasController < ApplicationController
     end
   end
 
+  def upvote
+    idea = Idea.find(params[:id])
+    idea.upvote
+    idea.save
+    respond_with idea, location: nil
+  end
+
+  def downvote
+    idea = Idea.find(params[:id])
+    idea.downvote
+    idea.save
+    respond_with idea, location: nil
+  end
+
   private
 
     def idea_params
