@@ -4,6 +4,6 @@ RSpec.describe Idea, type: :model do
   it { should define_enum_for(:quality) }
   it do
     should define_enum_for(:quality).
-      with([:Swill, :Possible, :Genius])
+      with([:Swill, :Plausible, :Genius])
   end
 end

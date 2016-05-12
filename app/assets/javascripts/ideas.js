@@ -118,7 +118,7 @@ function downvoteIdea(){
 
 
 function changeQuality(element, quality, vote){
-  var qualities = ["Swill", "Possible", "Genius"];
+  var qualities = ["Swill", "Plausible", "Genius"];
   var index = qualities.indexOf(quality);
 
   if (vote === "upvote") {
