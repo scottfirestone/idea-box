@@ -23,13 +23,13 @@ function fetchIdeas(){
 
 function renderIdea(idea){
   $("#ideas")
-    .prepend("<div class=idea data-idea-id="
+    .prepend("<div class='well idea' data-idea-id="
     + idea.id
     + "><div class=title><p contenteditable=true>"
     + idea.title
     + "</div></p><div class=body><p contenteditable=true>"
     + idea.body
-    + "</div></p><p class=quality>"
+    + "</div></p><br><p class=quality>"
     + idea.quality
     + "</p><a href=#>"
     + "<span class='upvote glyphicon glyphicon-thumbs-up'></span>"
