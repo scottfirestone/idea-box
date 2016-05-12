@@ -28,13 +28,24 @@ function fetchIdeas(){
 }
 
 function renderIdea(idea){
+  var trimBody = function(body){
+    var lastSpace = body.lastIndexOf(" ", 99);
+    return body.substring(0, lastSpace);
+  };
+
+  if (idea.body.length > 100){
+    var body = trimBody(idea.body);
+  } else {
+    var body = idea.body;
+  }
+
   $("#ideas")
     .prepend("<div class='well idea' data-idea-id="
     + idea.id
     + "><div class=title><h4 contenteditable=true>"
     + idea.title
     + "</div></h4><div class=body><p contenteditable=true>"
-    + idea.body
+    + body
     + "</div></p><br><p class=quality>"
     + idea.quality
     + "</p><a href=#>"
