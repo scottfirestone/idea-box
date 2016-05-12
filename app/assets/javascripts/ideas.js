@@ -23,7 +23,7 @@ function fetchIdeas(){
 
 function renderIdea(idea){
   $("#ideas")
-    .append("<div class=idea data-idea-id="
+    .prepend("<div class=idea data-idea-id="
     + idea.id
     + "><div class=title><p contenteditable=true>"
     + idea.title
